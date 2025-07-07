@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { client } from '@/sanity/lib/client'
 import { motion } from 'framer-motion'
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md'
 
