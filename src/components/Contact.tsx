@@ -11,18 +11,8 @@ type ContactInfo = {
   address: string
 }
 
-export default function Contact() {
-  const [contact, setContact] = useState<ContactInfo | null>(null)
+export default function Contact({contact}:{contact:ContactInfo}) {
 
-  useEffect(() => {
-    client
-      .fetch(`*[_type == "contact"][0] {
-        email,
-        phone,
-        address
-      }`)
-      .then(setContact)
-  }, [])
 
   if (!contact) return <div className="text-white">Loading...</div>
 

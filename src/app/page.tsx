@@ -12,13 +12,29 @@ export default async function Home() {
     "heroImage": heroImage.asset->url
   }`)
 
+
+  const about = await client.fetch(`*[_type == "about"][0] {
+  heading,
+  description,
+  experienceYears,
+  "profileImage": profileImage.asset->url
+}`)
+
+
+const contact = await client.fetch(`*[_type == "contact"][0] {
+        email,
+        phone,
+        address
+      }`)
+
+
   return (
     <>
       <Hero hero={hero} />
-      <About />
+      <About about = {about} />
       <Projects />
       <SocialLinks/>
-      <Contact/>
+      <Contact contact = {contact}/>
     </>
   )
 }

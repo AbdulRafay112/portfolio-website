@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { client } from "@/sanity/lib/client"
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -12,17 +10,7 @@ type AboutData = {
   profileImage: string
 }
 
-export default function About() {
-  const [about, setAbout] = useState<AboutData | null>(null)
-
-  useEffect(() => {
-    client.fetch(`*[_type == "about"][0] {
-  heading,
-  description,
-  experienceYears,
-  "profileImage": profileImage.asset->url
-}`).then((data) => setAbout(data))
-  }, [])
+export default function About({about}:{about:AboutData}) {
 
   if (!about) return <div className="text-white">Loading...</div>
 
