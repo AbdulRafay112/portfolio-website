@@ -18,7 +18,7 @@ export default function Hero({ hero }: { hero: HeroData }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-4xl md:text-6xl font-bold">Hi, I'm {hero.name}</h1>
+        <h1 className="text-4xl md:text-6xl font-bold">Hi, I am {hero.name}</h1>
         <p className="text-xl text-purple-400">{hero.tagline}</p>
         <p className="text-lg text-gray-300">{hero.intro}</p>
       </motion.div>
