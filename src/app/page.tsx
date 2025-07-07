@@ -27,13 +27,27 @@ const contact = await client.fetch(`*[_type == "contact"][0] {
         address
       }`)
 
+const social = await client.fetch(`*[_type == "social"]{
+        platform,
+        url
+      }`)
+
+const projects = await client.fetch(`*[_type == "project"] | order(_createdAt desc) {
+  title,
+  description,
+  "image": image.asset->url,
+  liveDemo,
+  github,
+  techStack,
+  slug
+}`)
 
   return (
     <>
       <Hero hero={hero} />
       <About about = {about} />
-      <Projects />
-      <SocialLinks/>
+      <Projects projects = {projects}/>
+      <SocialLinks social={social}/>
       <Contact contact = {contact}/>
     </>
   )

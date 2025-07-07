@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { client } from '@/sanity/lib/client'
 import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter, FaGlobe } from 'react-icons/fa'
 
@@ -10,19 +8,10 @@ type Social = {
   url: string
 }
 
-export default function SocialLinks() {
-  const [socials, setSocials] = useState<Social[]>([])
-
-  useEffect(() => {
-    client
-      .fetch(`*[_type == "social"]{
-        platform,
-        url
-      }`)
-      .then((data) => setSocials(data))
-  }, [])
-
+export default function SocialLinks({ social }: { social: Social[] }) {
   const getIcon = (platform: string) => {
+    if (!platform) return <FaGlobe size={24} />
+
     switch (platform.toLowerCase()) {
       case 'github':
         return <FaGithub size={24} />
@@ -47,17 +36,17 @@ export default function SocialLinks() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
-          {socials.map((social) => (
+          {social.map((item, index) => (
             <motion.a
-              key={social.platform}
-              href={social.url}
+              key={index}
+              href={item.url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-purple-300 hover:text-purple-500 transition text-lg"
               whileHover={{ scale: 1.1 }}
             >
-              {getIcon(social.platform)}
-              {social.platform}
+              {getIcon(item.platform)}
+              {item.platform}
             </motion.a>
           ))}
         </motion.div>

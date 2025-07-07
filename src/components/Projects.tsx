@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-import { client } from '@/sanity/lib/client'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -16,37 +15,14 @@ type Project = {
   slug: { current: string }
 }
 
-export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([])
+export default function Projects({ projects }: { projects: Project[] }) {
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  // Register GSAP ScrollTrigger once
   useEffect(() => {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger)
     }
-  }, [])
 
-  // Fetch data from Sanity
-  useEffect(() => {
-    client
-      .fetch(`*[_type == "project"] | order(_createdAt desc) {
-        title,
-        description,
-        "image": image.asset->url,
-        liveDemo,
-        github,
-        techStack,
-        slug
-      }`)
-      .then((data) => {
-        console.log("Projects fetched:", data)
-        setProjects(data)
-      })
-  }, [])
-
-  // GSAP animation on scroll
-  useEffect(() => {
     if (sectionRef.current && projects.length > 0) {
       const cards = sectionRef.current.querySelectorAll('.project-card')
 
